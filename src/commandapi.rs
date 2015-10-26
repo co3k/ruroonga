@@ -2,7 +2,7 @@ extern crate libc;
 use std::ffi::CStr;
 use std::str;
 use std::path::Path;
-use std::fs::PathExt;
+use std::fs::File;
 use std::mem;
 use groonga;
 
@@ -39,7 +39,7 @@ pub fn groonga_db_use(ctx: *mut groonga::grn_ctx, dbpath: &str) -> *mut groonga:
         let path = Path::new(dbpath);
         let path_displayable = path.display();
         let db_ctx;
-        if path.exists() {
+        if File::open(path).is_ok() {
             println!("{} exists. Creating db is skipped.", path_displayable);
             db_ctx = groonga::grn_db_open(ctx, c_dbpath);
         } else {

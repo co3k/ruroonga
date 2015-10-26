@@ -1,5 +1,4 @@
 #![feature(convert)]
-#![feature(path_ext)]
 extern crate libc;
 
 pub mod groonga;
